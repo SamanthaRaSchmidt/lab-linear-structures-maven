@@ -18,10 +18,31 @@ public class StringUtils {
     
   /**
    * Determine whether the parens match in string.
+   * @throws Exception 
    */
-  public static boolean checkMatching(String str) {
+  public static boolean checkMatching(String str) throws Exception {
     Stack<Character> parens = new LinkedStack<Character>();
-    return false;       // STUB
+    Boolean isParen = false;
+
+    for(int i = 0; i<str.length(); i++){
+      if(str.charAt(i) == '(' || str.charAt(i) == '[') {
+        parens.push(str.charAt(i));
+        isParen = true;
+      }
+
+      if(str.charAt(i) == ')' || str.charAt(i) == ']' && isParen) {
+        while (!parens.isEmpty()) {
+          parens.pop();
+          isParen = false;
+        }
+      }
+    }
+    if (parens.isEmpty()) {
+      return true;
+    } else {
+      return false;
+    }
+    
   } // checkMatching
 } // class StringUtils    
 
